@@ -2,6 +2,26 @@
 
 A beautiful, animated HTML leaderboard for displaying your live stream chat statistics! Track who has been in your chat the longest and who has sent the most messages.
 
+## 🤖 Automatic YouTube Tracking
+
+**NEW!** Fully automated chat tracking for YouTube streamers using Streamerbot!
+
+- ✅ **Zero Manual Work** - Automatically captures all chat messages
+- ✅ **Real-time Updates** - Leaderboard updates as people chat
+- ✅ **Easy Setup** - 3 simple steps to get started
+- ✅ **Streamerbot Integration** - Works with your existing setup
+
+**[📖 See AUTOMATION_SETUP.md for full setup guide](AUTOMATION_SETUP.md)**
+
+### Quick Auto-Setup:
+1. Add C# action to Streamerbot (captures YouTube chat)
+2. Run Python converter script (formats data)
+3. Open leaderboard in browser/OBS (displays rankings)
+
+**Perfect for streamers with hundreds of chatters!**
+
+---
+
 ## Features
 
 - 📊 **Dual Rankings**: View top chatters by time spent OR message count
@@ -13,6 +33,12 @@ A beautiful, animated HTML leaderboard for displaying your live stream chat stat
 
 ## Quick Start
 
+### For YouTube Streamers (Recommended):
+1. **Follow [AUTOMATION_SETUP.md](AUTOMATION_SETUP.md)** for automatic tracking
+2. **Open `index.html`** in browser or OBS
+3. **Start streaming** - leaderboard updates automatically!
+
+### Manual Mode (Small Streams):
 1. **View the Leaderboard**
    - Open `index.html` in your browser
    - Or add as a browser source in OBS
@@ -73,13 +99,31 @@ Edit `script.js` and change the interval (default: 30000ms = 30s):
 setInterval(loadLeaderboardData, 30000);
 ```
 
-## Integration with Chat Bots
+## Automated Tracking Options
 
-You can integrate this with popular chat bots to automatically track data:
+### 🎯 Recommended: Streamerbot (YouTube)
 
-- **Nightbot**: Use custom commands to log chat activity
-- **StreamElements**: Track viewer engagement
-- **Custom Bot**: Update `data.json` programmatically
+**Fully automated solution for YouTube streamers!**
+
+See **[AUTOMATION_SETUP.md](AUTOMATION_SETUP.md)** for complete instructions.
+
+**What you get:**
+- Automatic message tracking
+- Automatic time tracking
+- Zero manual data entry
+- Works with hundreds of chatters
+
+**Files included:**
+- `streamerbot/ChatTrackerAction.cs` - Streamerbot C# action
+- `streamerbot/convert_to_leaderboard.py` - Data converter
+- `streamerbot/START_TRACKER.bat` - Easy launcher
+- `AUTOMATION_SETUP.md` - Complete setup guide
+
+### Other Platform Options
+
+- **Twitch**: Can be adapted for Twitch IRC
+- **Manual Entry**: Use `update_data.html` for small streams
+- **Custom Bot**: Update `data.json` programmatically with any tool
 
 ## License
 
