@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">🏆 Chat Leaderboard 🏆</h1>
+            <div class="toggle-container">
+                <button class="toggle-btn active" data-mode="messages">
+                    💬 Most Messages
+                </button>
+                <button class="toggle-btn" data-mode="time">
+                    ⏱️ Longest Time
+                </button>
+            </div>
+            <div class="last-updated">
+                Last updated: <span id="lastUpdated">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard" id="leaderboard">
+            <!-- Dynamically populated -->
+        </div>
+
+        <!-- Footer Stats -->
+        <div class="footer-stats">
+            <div class="stat-box">
+                <div class="stat-value" id="totalChatters">0</div>
+                <div class="stat-label">Total Chatters</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="totalMessages">0</div>
+                <div class="stat-label">Total Messages</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="totalTime">0</div>
+                <div class="stat-label">Total Hours</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

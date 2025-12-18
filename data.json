@@ -1,0 +1,65 @@
+{
+  "chatters": [
+    {
+      "username": "SpeedDemon42",
+      "messages": 523,
+      "timeMinutes": 245,
+      "avatar": "https://ui-avatars.com/api/?name=SpeedDemon42&background=6366f1&color=fff&size=100"
+    },
+    {
+      "username": "RacingFan99",
+      "messages": 412,
+      "timeMinutes": 198,
+      "avatar": "https://ui-avatars.com/api/?name=RacingFan99&background=8b5cf6&color=fff&size=100"
+    },
+    {
+      "username": "ChatMaster",
+      "messages": 387,
+      "timeMinutes": 156,
+      "avatar": "https://ui-avatars.com/api/?name=ChatMaster&background=ec4899&color=fff&size=100"
+    },
+    {
+      "username": "LoyalViewer",
+      "messages": 298,
+      "timeMinutes": 312,
+      "avatar": "https://ui-avatars.com/api/?name=LoyalViewer&background=10b981&color=fff&size=100"
+    },
+    {
+      "username": "StreamSniper",
+      "messages": 276,
+      "timeMinutes": 134,
+      "avatar": "https://ui-avatars.com/api/?name=StreamSniper&background=f59e0b&color=fff&size=100"
+    },
+    {
+      "username": "QuietLurker",
+      "messages": 45,
+      "timeMinutes": 402,
+      "avatar": "https://ui-avatars.com/api/?name=QuietLurker&background=3b82f6&color=fff&size=100"
+    },
+    {
+      "username": "HypeTrainConductor",
+      "messages": 654,
+      "timeMinutes": 223,
+      "avatar": "https://ui-avatars.com/api/?name=HypeTrainConductor&background=ef4444&color=fff&size=100"
+    },
+    {
+      "username": "ModSquad",
+      "messages": 189,
+      "timeMinutes": 289,
+      "avatar": "https://ui-avatars.com/api/?name=ModSquad&background=14b8a6&color=fff&size=100"
+    },
+    {
+      "username": "EmoteSpammer",
+      "messages": 891,
+      "timeMinutes": 167,
+      "avatar": "https://ui-avatars.com/api/?name=EmoteSpammer&background=a855f7&color=fff&size=100"
+    },
+    {
+      "username": "FirstTimeViewer",
+      "messages": 23,
+      "timeMinutes": 45,
+      "avatar": "https://ui-avatars.com/api/?name=FirstTimeViewer&background=06b6d4&color=fff&size=100"
+    }
+  ],
+  "lastUpdated": "2025-12-18T12:00:00Z"
+}
