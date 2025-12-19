@@ -19,9 +19,9 @@
 
         .ticker-container {
             width: 100%;
-            height: 80px;
+            height: 50px;
             background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 40, 80, 0.95));
-            border-bottom: 3px solid #6366f1;
+            border-bottom: 2px solid #6366f1;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             position: relative;
@@ -58,9 +58,9 @@
         }
 
         .rank-badge {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
-            min-width: 50px;
+            min-width: 40px;
             text-align: center;
             color: #fbbf24;
         }
@@ -70,8 +70,8 @@
         .rank-badge.bronze { color: #cd7f32; }
 
         .avatar {
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             border: 2px solid #6366f1;
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
@@ -84,7 +84,7 @@
         }
 
         .username {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             color: #fff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -92,8 +92,8 @@
 
         .stats {
             display: flex;
-            gap: 20px;
-            font-size: 14px;
+            gap: 15px;
+            font-size: 11px;
             color: #a5b4fc;
         }
 
@@ -109,16 +109,16 @@
 
         .header {
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 20px;
+            font-size: 14px;
             font-weight: bold;
             color: #fff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             background: rgba(99, 102, 241, 0.3);
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 15px;
             z-index: 10;
             border: 2px solid #6366f1;
         }
@@ -228,7 +228,7 @@
             // Calculate animation duration based on content width
             // Adjust speed here: lower number = faster scroll
             const itemCount = topChatters.length;
-            const duration = itemCount * 8; // 8 seconds per item
+            const duration = itemCount * 12; // 12 seconds per item (slower)
             ticker.style.animationDuration = `${duration}s`;
         }
 
