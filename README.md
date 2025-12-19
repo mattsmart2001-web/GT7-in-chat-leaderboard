@@ -33,15 +33,29 @@ A beautiful, animated HTML leaderboard for displaying your live stream chat stat
 
 ## Quick Start
 
+### ⚠️ IMPORTANT: How to View the Leaderboard
+
+**For Browser Viewing:**
+- **DON'T** open `index.html` directly (this causes CORS errors)
+- **DO** run the local web server:
+  - **Windows**: Double-click `START_SERVER.bat`
+  - **Mac/Linux**: Run `./start_server.sh` or `python3 start_server.py`
+  - Opens automatically at `http://localhost:8000`
+
+**For OBS Browser Source:**
+- Use the full file path: `file:///C:/path/to/index.html`
+- OBS doesn't have CORS restrictions, so direct file paths work fine!
+
 ### For YouTube Streamers (Recommended):
 1. **Follow [AUTOMATION_SETUP.md](AUTOMATION_SETUP.md)** for automatic tracking
-2. **Open `index.html`** in browser or OBS
-3. **Start streaming** - leaderboard updates automatically!
+2. **Start the server** using `START_SERVER.bat` (Windows) or `start_server.sh` (Mac/Linux)
+3. **Open browser** to `http://localhost:8000` OR add to OBS as browser source
+4. **Start streaming** - leaderboard updates automatically!
 
 ### Manual Mode (Small Streams):
 1. **View the Leaderboard**
-   - Open `index.html` in your browser
-   - Or add as a browser source in OBS
+   - Run `START_SERVER.bat` and open `http://localhost:8000`
+   - Or add `file:///full/path/to/index.html` as OBS browser source
 
 2. **Update Chat Data**
    - Open `update_data.html` to add/edit chatters
@@ -54,6 +68,9 @@ A beautiful, animated HTML leaderboard for displaying your live stream chat stat
 - `update_data.html` - Simple interface to manage chat data
 - `styles.css` - Styling and animations
 - `script.js` - Leaderboard logic
+- `start_server.py` - Local web server (fixes CORS issues)
+- `START_SERVER.bat` - Windows server launcher
+- `start_server.sh` - Mac/Linux server launcher
 
 ## Using in OBS
 
