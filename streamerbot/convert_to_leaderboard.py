@@ -55,11 +55,17 @@ def convert_chat_data():
         # Convert to leaderboard format
         chatters = []
         for user_id, data in chat_data.items():
+            username = data.get("Username", "Unknown")
+            # Use real YouTube avatar if available, otherwise generate placeholder
+            avatar = data.get("Avatar", "")
+            if not avatar or avatar == "":
+                avatar = generate_avatar_url(username)
+
             chatter = {
-                "username": data.get("Username", "Unknown"),
+                "username": username,
                 "messages": data.get("Messages", 0),
                 "timeMinutes": data.get("TotalMinutes", 0),
-                "avatar": generate_avatar_url(data.get("Username", "Unknown"))
+                "avatar": avatar
             }
             chatters.append(chatter)
 

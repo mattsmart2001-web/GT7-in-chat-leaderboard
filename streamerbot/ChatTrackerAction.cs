@@ -29,6 +29,7 @@ public class CPHInline
             string username = args.ContainsKey("userName") ? args["userName"].ToString() : "";
             string userId = args.ContainsKey("userId") ? args["userId"].ToString() : "";
             string message = args.ContainsKey("message") ? args["message"].ToString() : "";
+            string avatarUrl = args.ContainsKey("userProfileImageUrl") ? args["userProfileImageUrl"].ToString() : "";
 
             if (string.IsNullOrEmpty(username))
             {
@@ -46,6 +47,7 @@ public class CPHInline
                 {
                     UserId = userId,
                     Username = username,
+                    Avatar = avatarUrl,
                     Messages = 0,
                     FirstSeen = DateTime.UtcNow,
                     LastSeen = DateTime.UtcNow,
@@ -58,6 +60,12 @@ public class CPHInline
             chatters[userId].Messages++;
             chatters[userId].LastSeen = DateTime.UtcNow;
             chatters[userId].Username = username; // Update username in case it changed
+
+            // Update avatar if available
+            if (!string.IsNullOrEmpty(avatarUrl))
+            {
+                chatters[userId].Avatar = avatarUrl;
+            }
 
             // Calculate time spent (rough estimate based on activity)
             TimeSpan timeSinceFirst = DateTime.UtcNow - chatters[userId].FirstSeen;
@@ -121,6 +129,7 @@ public class ChatterData
 {
     public string UserId { get; set; }
     public string Username { get; set; }
+    public string Avatar { get; set; }
     public int Messages { get; set; }
     public DateTime FirstSeen { get; set; }
     public DateTime LastSeen { get; set; }
