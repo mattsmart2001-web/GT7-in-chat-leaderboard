@@ -26,9 +26,9 @@ public class CPHInline
         try
         {
             // Get user info from YouTube chat event
-            string username = CPH.GetEventString("userName");
-            string userId = CPH.GetEventString("userId");
-            string message = CPH.GetEventString("message");
+            string username = args.ContainsKey("userName") ? args["userName"].ToString() : "";
+            string userId = args.ContainsKey("userId") ? args["userId"].ToString() : "";
+            string message = args.ContainsKey("message") ? args["message"].ToString() : "";
 
             if (string.IsNullOrEmpty(username))
             {
