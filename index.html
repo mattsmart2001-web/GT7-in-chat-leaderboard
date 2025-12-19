@@ -213,10 +213,9 @@
             // Duplicate content for seamless loop
             ticker.innerHTML = tickerHTML + tickerHTML;
 
-            // Calculate animation duration based on content width
-            // Adjust speed here: lower number = faster scroll
-            const itemCount = topChatters.length;
-            const duration = itemCount * 12; // 12 seconds per item (slower)
+            // Use fixed duration for consistent scroll speed
+            // Lower number = faster, higher = slower
+            const duration = 60; // seconds (constant speed regardless of item count)
             ticker.style.animationDuration = `${duration}s`;
         }
 
