@@ -3,49 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Leaderboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Chat Leaderboard Ticker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: transparent;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .ticker-container {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(40, 40, 80, 0.95));
+            border-bottom: 3px solid #6366f1;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker-wrapper {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            animation: scroll-left 60s linear infinite;
+            white-space: nowrap;
+        }
+
+        /* Pause animation on hover */
+        .ticker-container:hover .ticker-wrapper {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 30px;
+            gap: 15px;
+            border-right: 2px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .rank-badge {
+            font-size: 24px;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: center;
+            color: #fbbf24;
+        }
+
+        .rank-badge.gold { color: #fbbf24; }
+        .rank-badge.silver { color: #c0c0c0; }
+        .rank-badge.bronze { color: #cd7f32; }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #6366f1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .username {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #a5b4fc;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-icon {
+            font-size: 16px;
+        }
+
+        .header {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgba(99, 102, 241, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 10;
+            border: 2px solid #6366f1;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            color: #fff;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1 class="title">🏆 Chat Leaderboard 🏆</h1>
-            <div class="toggle-container">
-                <button class="toggle-btn active" data-mode="messages">
-                    💬 Most Messages
-                </button>
-                <button class="toggle-btn" data-mode="time">
-                    ⏱️ Longest Time
-                </button>
-            </div>
-            <div class="last-updated">
-                Last updated: <span id="lastUpdated">Loading...</span>
-            </div>
-        </div>
-
-        <!-- Leaderboard -->
-        <div class="leaderboard" id="leaderboard">
-            <!-- Dynamically populated -->
-        </div>
-
-        <!-- Footer Stats -->
-        <div class="footer-stats">
-            <div class="stat-box">
-                <div class="stat-value" id="totalChatters">0</div>
-                <div class="stat-label">Total Chatters</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="totalMessages">0</div>
-                <div class="stat-label">Total Messages</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="totalTime">0</div>
-                <div class="stat-label">Total Hours</div>
-            </div>
+    <div class="ticker-container">
+        <div class="header">🏆 Top Chatters</div>
+        <div class="ticker-wrapper" id="ticker">
+            <div class="loading">Loading leaderboard data...</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let leaderboardData = null;
+        let currentMode = 'messages'; // 'messages' or 'time'
+
+        // Format time in minutes to human-readable format
+        function formatTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            if (hours > 0) {
+                return `${hours}h ${mins}m`;
+            }
+            return `${mins}m`;
+        }
+
+        // Format numbers with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Load leaderboard data
+        async function loadLeaderboardData() {
+            try {
+                const response = await fetch('data.json');
+                leaderboardData = await response.json();
+                renderTicker();
+            } catch (error) {
+                console.error('Error loading leaderboard data:', error);
+                document.getElementById('ticker').innerHTML = `
+                    <div class="loading" style="color: #ef4444;">
+                        ⚠️ Unable to load leaderboard data
+                    </div>
+                `;
+            }
+        }
+
+        // Render the scrolling ticker
+        function renderTicker() {
+            if (!leaderboardData) return;
+
+            const ticker = document.getElementById('ticker');
+
+            // Sort by messages (or time if you prefer)
+            let sortedChatters = [...leaderboardData.chatters];
+            if (currentMode === 'messages') {
+                sortedChatters.sort((a, b) => b.messages - a.messages);
+            } else {
+                sortedChatters.sort((a, b) => b.timeMinutes - a.timeMinutes);
+            }
+
+            // Take top 10 (or all if less than 10)
+            const topChatters = sortedChatters.slice(0, 10);
+
+            // Create ticker items HTML
+            let tickerHTML = '';
+            topChatters.forEach((chatter, index) => {
+                const rank = index + 1;
+                const medals = ['🥇', '🥈', '🥉'];
+                const rankDisplay = rank <= 3 ? medals[rank - 1] : `#${rank}`;
+                const rankClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : '';
+
+                tickerHTML += `
+                    <div class="ticker-item">
+                        <div class="rank-badge ${rankClass}">${rankDisplay}</div>
+                        <img src="${chatter.avatar}" alt="${chatter.username}" class="avatar">
+                        <div class="user-info">
+                            <div class="username">${chatter.username}</div>
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="stat-icon">💬</span>
+                                    <span>${formatNumber(chatter.messages)}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-icon">⏱️</span>
+                                    <span>${formatTime(chatter.timeMinutes)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Duplicate content for seamless loop
+            ticker.innerHTML = tickerHTML + tickerHTML;
+
+            // Calculate animation duration based on content width
+            // Adjust speed here: lower number = faster scroll
+            const itemCount = topChatters.length;
+            const duration = itemCount * 8; // 8 seconds per item
+            ticker.style.animationDuration = `${duration}s`;
+        }
+
+        // Switch between modes (optional - can be controlled externally)
+        function switchMode(mode) {
+            currentMode = mode;
+            renderTicker();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLeaderboardData();
+
+            // Auto-refresh every 30 seconds
+            setInterval(loadLeaderboardData, 30000);
+        });
+    </script>
 </body>
 </html>
